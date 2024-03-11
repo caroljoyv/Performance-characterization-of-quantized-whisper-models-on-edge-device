@@ -7,7 +7,7 @@ from optimum.onnxruntime import ORTModelForSpeechSeq2Seq
 
 def run(model_name, audio):
     # Define model path
-    model_path = os.path.join("/home/carol/mp/quantize", model_name)
+    model_path = os.path.join("/home/pi/whisper-quantized", model_name)
     
     # Load the model and processor
     processor = WhisperProcessor.from_pretrained(model_name)
