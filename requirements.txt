@@ -11,7 +11,6 @@ decorator==5.1.1
 dill==0.3.8
 evaluate==0.4.1
 filelock==3.13.1
-flatbuffers==20181003210633
 frozenlist==1.4.1
 fsspec==2024.2.0
 huggingface_hub==0.21.4
