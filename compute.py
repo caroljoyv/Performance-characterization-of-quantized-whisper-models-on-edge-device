@@ -2,9 +2,7 @@ import sys
 import os
 import librosa
 import time
-import psutil
 import numpy as np
-import matplotlib.pyplot as plt
 from transformers import WhisperProcessor, AutoConfig
 from optimum.onnxruntime import ORTModelForSpeechSeq2Seq
 
