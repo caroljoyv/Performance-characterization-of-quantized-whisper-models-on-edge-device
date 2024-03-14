@@ -1,6 +1,7 @@
 import ast
 import string
 import sys
+import jiwer
 
 def remove_punctuation(sentence):
     translator = str.maketrans('', '', string.punctuation.replace("'", ""))
@@ -22,8 +23,29 @@ def calculate(original, transcription):
     clean_original = [remove_punctuation(sentence) for sentence in original_text]
     clean_transcription = [remove_punctuation(sentence) for sentence in transcription_text]
 
-    # Perform further calculations or comparisons as needed
-    print("done")
+    #calculate wer
+    wer = jiwer.wer(clean_original, clean_transcription)
+    print("WER = ",wer)
+
+    #calculate wip
+    wip = jiwer.wip(clean_original, clean_transcription)
+    print("WIP = ",wip)
+
+    #calculate wil
+    wil = jiwer.wil(clean_original, clean_transcription)
+    print("WIL = ",wil)
+
+    #calculate mer
+    mer = jiwer.mer(clean_original, clean_transcription)
+    print("MER = ",mer)
+
+    #calculate cer
+    cer = jiwer.cer(clean_original, clean_transcription)
+    print("CER = ",cer)
+    
+
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python script_name.py <path_to_original_file> <path_to_transcription_file>")

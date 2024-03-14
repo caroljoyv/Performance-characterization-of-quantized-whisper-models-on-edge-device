@@ -2,11 +2,16 @@ import sys
 import os
 import librosa
 import time
+import psutil
+import numpy as np
+import matplotlib.pyplot as plt
 from transformers import WhisperProcessor, AutoConfig
 from optimum.onnxruntime import ORTModelForSpeechSeq2Seq
 
-def compute(model_name, file_name):
+
+def compute(model_name, file_name, output_file_name):
     total_rtf = 0
+    rtf_values = []
     transcriptions = []
 
     # specify complete model path
@@ -24,11 +29,11 @@ def compute(model_name, file_name):
     # Read filenames from the file to a list
     with open(file_name, "r") as file:
         audio_files = file.read().splitlines()
-    audio_files.pop() # remove the empy element from the list
+    audio_files.pop()  # remove the empty element from the list
 
     print()
     count = 0   
-    print("Staring transcription")
+    print("Starting transcription")
     for audio_file in audio_files:
         
         count += 1
@@ -50,7 +55,7 @@ def compute(model_name, file_name):
         predicted_ids = model.generate(input_features, forced_decoder_ids=forced_decoder_ids)[0]
         inference_time = time.time() - inference_start_time
     
-        # Decode the predicted IDs -- trans
+        # Decode the predicted IDs
         decoding_start_time = time.time()
         trans = processor.decode(predicted_ids, skip_special_tokens=True)
         decoding_time = time.time() - decoding_start_time
@@ -59,29 +64,42 @@ def compute(model_name, file_name):
         read_time = time.time() - start_time
         total_utterance_duration = len(audio_data) / sample_rate
         rtf = (read_time + inference_time + decoding_time) / total_utterance_duration
-
-        print(trans)
-        # append transcription to the list ans sum rtf
+        
+        # Append transcription and rtf to the lists
         transcriptions.append(trans)
-        total_rtf += rtf
-
-    average_rtf = total_rtf / len(audio_files)
+        rtf_values.append(rtf)
+        
+        # Print the transcription
+        print(trans)
+    
+    # Calculate statistics
+    average_rtf = np.mean(rtf_values)
+    mean_rtf = np.mean(rtf_values)
+    p75_rtf = np.percentile(rtf_values, 75)
+    p90_rtf = np.percentile(rtf_values, 90)
     
     # Write transcriptions to file
-    output_file = "/home/carol/mp/quantize/transcriptions/tiny/transcription.txt"
-    with open(output_file, "w") as f:
+    with open(output_file_name, "w") as f:
         f.write(str(transcriptions))
 
+    # Print statistics
+    print("\nStatistics:")
     print("Average RTF for the dataset:", average_rtf)
+    print("Mean RTF for the dataset:", mean_rtf)
+    print("P75 RTF for the dataset:", p75_rtf)
+    print("P90 RTF for the dataset:", p90_rtf)
+
+
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python script.py model_name file_name")
+    if len(sys.argv) != 4:
+        print("Usage: python script.py model_name file_name output_file_name")
         sys.exit(1)
     
     model_name = sys.argv[1]
     file_name = sys.argv[2]
-    compute(model_name, file_name)
+    output_file_name = sys.argv[3]
+    compute(model_name, file_name, output_file_name)
 
 if __name__ == "__main__":
     main()
