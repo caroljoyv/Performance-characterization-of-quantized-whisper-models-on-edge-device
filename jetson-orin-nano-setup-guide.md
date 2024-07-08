@@ -29,33 +29,35 @@ This document provides a step-by-step guide for setting up the Jetson Orin Nano.
 2. **Upgrade the Jetson UEFI firmware to 36.x if UEFI Firmware version < 36.0**
      This is essential for JetPack 6 SDK to work.
    
-3. **Flash JetPack 5.1.3 image onto your microSD card and insert it into the slot in Jetson module**
+ ### For the firmware update, follow these steps.
    
-4. **Power-on and reboot to ensure firmware gets updated to 5.0 (JetPack 5.1.3)**
+1. **Flash JetPack 5.1.3 image onto your microSD card and insert it into the slot in Jetson module**
+   
+2. **Power-on and reboot to ensure firmware gets updated to 5.0 (JetPack 5.1.3)**
       - Power-on
       - Complete the initial software setup (oem-config)
       - Once Jetson boots into Jetson Linux system, a background service automatically runs to schedule a firmware update (if needed) to be performed during the next boot-up process.
       - Reboot your Jetson Orin Nano Developer Kit.
       - Once done, you will boot into JetPack 5.1.3 (again), with underlying firmware updated to 5.0-35550185.
         
-5. **Install and run QSPI Updater package**
+3. **Install and run QSPI Updater package**
    
-6. **Run this in the terminal, the current version shown should be 35.5.0**
+4. **Run this in the terminal, the current version shown should be 35.5.0**
      ```bash
    sudo nvbootctrl dump-slots-info
       ```
-7. **Install QSPI Updater Debian package to trigger another (final) firmware update**
+5. **Install QSPI Updater Debian package to trigger another (final) firmware update**
       ```bash
          sudo apt-get install nvidia-l4t-jetson-orin-nano-qspi-updater
       ```
-8. **Reboot and power-off the developer kit**
+6. **Reboot and power-off the developer kit**
 
-9. **Power off**
+7. **Power off**
    Once the update is done, it reboots and tries to boot, however it will get stuck UNLESS you change the SD card to JetPack 6 one.
 
-10. **Flash JetPack 6.0 GA image onto your microSD card**
+8. **Flash JetPack 6.0 GA image onto your microSD card**
 
-11. **Power on to start developing on JetPack 6**
+9. **Power on to start developing on JetPack 6**
        The bootscreen should look like the following
        ![](./bootscreen.jpeg)
     
