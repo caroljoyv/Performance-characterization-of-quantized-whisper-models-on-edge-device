@@ -55,7 +55,7 @@ This document provides a step-by-step guide for setting up the Jetson Orin Nano.
 
 11. **Power on to start developing on JetPack 6**
        The bootscreen should look like the following
-       !(./bootscreen.png)
+       ![](./bootscreen.jpeg)
     
 
 
