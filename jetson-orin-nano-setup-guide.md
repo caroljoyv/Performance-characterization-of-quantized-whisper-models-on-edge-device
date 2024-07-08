@@ -20,7 +20,9 @@ This document provides a step-by-step guide for setting up the Jetson Orin Nano.
 ![Firmware Update Flowchart](./image.png)
  Image taken from [Jetson AI Lab](https://www.jetson-ai-lab.com/initial_setup_jon.html).
 
+
  ### Details are mentioned in [Jetson AI Lab](https://www.jetson-ai-lab.com/initial_setup_jon.html.
+ 
 
 1. **Check if Jetson UEFI Firmware version > 36.3**
  
