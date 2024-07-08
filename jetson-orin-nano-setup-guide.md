@@ -59,43 +59,6 @@ This document provides a step-by-step guide for setting up the Jetson Orin Nano.
     
 
 
-     
-
-## Testing and Verification
-
-To verify that the setup is successful:
-
-1. **Check JetPack Installation**
-   - Open the terminal and run:
-     ```bash
-     sudo apt list --installed | grep nvidia
-     ```
-
-2. **Run a Sample Program**
-   - Navigate to the sample directory and run a pre-installed sample:
-     ```bash
-     cd /usr/src/nvidia/graphics_demos
-     ./sample_graphics_app
-     ```
-
-## Troubleshooting
-
-### Common Issues
-
-- **Display Not Working**
-  - Ensure the HDMI cable is properly connected.
-  - Try using a different HDMI cable or monitor.
-
-- **Network Connection Issues**
-  - Check the Ethernet cable connection.
-  - For Wi-Fi, ensure the adapter is recognized by the system:
-    ```bash
-    lsusb
-    ```
-
-- **Power Supply Problems**
-  - Verify that the power supply meets the required specifications (5V 4A).
-
 ## Additional Resources
 
 - [NVIDIA Jetson Orin Nano Developer Kit User Guide](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
